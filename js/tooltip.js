@@ -1,0 +1,5 @@
+let tooltipHover;export function initTooltip(){tooltipHover=document.getElementById('tooltip-hover');}
+export function showTooltipHover(e,tooltipHTML){tooltipHover.innerHTML=tooltipHTML;tooltipHover.style.display='block';updateTooltipHover(e);}
+export function updateTooltipHover(e){requestAnimationFrame(()=>{const offset=10;let footnoteRect=tooltipHover.getBoundingClientRect();let left;let top=e.clientY+offset;if(e.clientX>window.innerWidth/2){left=e.clientX-footnoteRect.width-offset;}else{left=e.clientX+offset;}
+left=Math.min(left,window.innerWidth-footnoteRect.width-offset);left=Math.max(left,offset);top=Math.min(top,window.innerHeight-footnoteRect.height-offset);top=Math.max(top,offset);tooltipHover.style.left=`${left}px`;tooltipHover.style.top=`${top}px`;tooltipHover.style.visibility='visible';});}
+export function hideTooltipHover(){tooltipHover.style.display='none';tooltipHover.style.visibility='hidden';}
