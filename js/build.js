@@ -95,6 +95,8 @@ let statsSummed={};for(let[amount,stat]of statsParsed){if(stat in statsSummed){i
 else{if(statsSummed[stat].number===null){statsSummed[stat].number=amount.number;}
 else{statsSummed[stat].number+=amount.number;}}}else{statsSummed[stat]={number:null,symbol:[]};if(amount.number===undefined){statsSummed[stat].symbol.push(amount.symbol);}
 else{statsSummed[stat].number=amount.number;}}}
+if(build.items.has('U0569')){setToZeroOrLess(statsSummed,'Spd');setToZeroOrLess(statsSummed,'Wis');setToZeroOrLess(statsSummed,'Chr');setToZeroOrLess(statsSummed,'Str');setToZeroOrLess(statsSummed,'Dex');setToZeroOrLess(statsSummed,'Lck');setToZeroOrLess(statsSummed,'Ach');setToZeroOrLess(statsSummed,'End');}
+if(build.items.has('R0014')){addOne(statsSummed,'Spd');addOne(statsSummed,'Wis');addOne(statsSummed,'Chr');addOne(statsSummed,'Str');addOne(statsSummed,'Dex');addOne(statsSummed,'Lck');addOne(statsSummed,'Ach');addOne(statsSummed,'End');}
 if(build.items.has('U1436')){delete statsSummed['Ach'];}
 if(build.items.has('U0633')){delete statsSummed['Points'];}
 if(build.items.has('U0955')){delete statsSummed['Spd'];}
@@ -113,7 +115,8 @@ return{number:Number(x)};}
 function deselectItem(build,id){build.items.delete(id);if(itemData[id].childIds){let children=[...itemData[id].childIds];while(children.length>0){let child=children.pop();if(build.items.has(child)){build.items.delete(child);}
 if(itemData[child].childIds){children.push(...itemData[child].childIds);}}}
 updateItemFromBuildsPage(build.id,id);saveSelectedBuild(build);}
-function getTooltipHTML(id){let item=itemData[id];let description=item.description.replaceAll('\n','<br>');if(id=="U1983"){description="Choose any of the following ailments to cure yourself of:";}
+function getTooltipHTML(id){let item=itemData[id];let description=item.description.replaceAll('\n','<br>');if(id=="U1875"){description="You start with a piece of receipt paper that reads:<br>NEUE CYOA: DEUX<br>--------<br>[...]<br>--------<br>Thank you for playing! Please enjoy your stay";}
+if(id=="U1983"){description="Choose any of the following ailments to cure yourself of:";}
 if(id=="U1813"){description="Coating your skin with paint allows you reflect certain types of damage with an effectiveness of 1% per mm of paint thickness. The type of damage depends on the color according to the rules below:";}
 if(id=="U0990"){description="Order as many items off the following menu as you want, as many times as you want. Item prices are in points.";}
 if(item.stats){description+=` <span class="stats">(${item.stats.map(x => x.join(' ')).join(', ')})</span>`;}
@@ -133,3 +136,5 @@ function statBackgroundColor(hue){let rgb=HSVtoRGB(hue,0.5,0.8);let color=rgb.r.
 function statTextColor(hue){let rgb=HSVtoRGB(hue,0.5,0.2);let color=rgb.r.toString(16).padStart(2,"0")
 +rgb.g.toString(16).padStart(2,"0")
 +rgb.b.toString(16).padStart(2,"0");return"#"+color;}
+function setToZeroOrLess(statsSummed,stat){statsSummed[stat]??={number:0,symbol:[]};statsSummed[stat].number=statsSummed[stat].number>0?0:statsSummed[stat].number;}
+function addOne(statsSummed,stat){statsSummed[stat]??={number:0,symbol:[]};statsSummed[stat].number+=1;}

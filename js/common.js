@@ -43,6 +43,7 @@ if(id=='U1015'){itemCost=calculateTheExchangeCost();}
 build.currentPoints-=itemCost;}else if(item.cost>0){build.totalPoints+=item.cost;}}}
 let minimumRuns=1;if(build.items.has('R0007')){minimumRuns=3;}
 if(build.runCount>minimumRuns){let bonusRuns=build.runCount-minimumRuns;build.totalPoints+=bonusRuns*50;}
+if(build.items.has('R0014')){build.totalPoints*=1.053;}
 if(build.items.has('R0028')||build.items.has('U0843-A0000')||build.items.has('U0648-A0002')||build.items.has('U0633')){build.totalPoints=0;}
 if(build.items.has('U0843-A0000')){build.totalPoints+=15;}
 if(build.items.has('U0648-A0002')){build.totalPoints+=50;}
